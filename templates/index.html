@@ -1,12 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-
-    <title></title>
-</head>
-<body>
-
-</body>
-
-</html>
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+{% block navbar %}{% endblock %}
+{% block content %}
+    <div class="jumbotron" id="content">
+        <div class="container">
+            <h1>图书馆</h1>
+        </div>
+{#        <ul class="nav nav-pills">#}
+{#            <li role="presentation" class="active" style="float: right;"><a href="#">Admin</a></li>#}
+{#        </ul>#}
+    </div>
+    <div class="col-lg-6" style="margin-left: 25%;">
+        <form action="/query/" method="post" class="input-group">
+            <input type="text" name="keyword" class="form-control">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="submit">搜索</button>
+      </span>
+        </form>
+    </div>
+{% endblock %}
