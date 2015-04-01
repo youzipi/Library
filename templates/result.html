@@ -4,21 +4,21 @@
 
 {% block content %}
     <div class="container">
-    <table class="table table-bordered">
-        <tr>
-            <th>index</th>
-            <th>title</th>
-            <th>id</th>
-            <th>pub</th>
-        </tr>
-        {% for book in result %}
+        <table class="table table-bordered">
             <tr>
-                <td>{{ book['index'] }}</td>
-                <td>{{ book['title'] }}</td>
-                <td>{{ book['id'] }}</td>
-                <td>{{ book['pub'] }}</td>
+                <th>index</th>
+                <th>title</th>
+                <th>id</th>
+                <th>pub</th>
             </tr>
-        {% endfor %}
-    </table>
+            {% for book in result %}
+                <tr>
+                    <td>{{ book['index'] }}</td>
+                    <td><a href="{{ book['link'] }}" target="_blank">{{ book['title'].decode('utf-8') }}</a></td>
+                    <td>{{ book['id'] }}</td>
+                    <td>{{ book['pub'].decode('utf-8') }}</td>
+                </tr>
+            {% endfor %}
+        </table>
     </div>
 {% endblock %}
