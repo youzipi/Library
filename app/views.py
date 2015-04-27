@@ -11,6 +11,7 @@ def index():
 # 查询方法，返回result.html
 def query():
     keyword = request.form['keyword']
+    print request
     print keyword
     url = "http://lib2.nuist.edu.cn/opac/search_rss.php?title=" + keyword
     # url = "http://127.0.0.1:5000/python.xml"
@@ -18,6 +19,7 @@ def query():
     #if request.form:
     # result = [{'1': 'ee'}, {'1': '中文'.decode('utf-8')}]
     session['result'] = result
+    print result
     # g['result'] = result
     # print result[0]
     # return redirect(url_for('result_temp'))
