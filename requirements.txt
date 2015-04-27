@@ -11,7 +11,4 @@ WTForms==1.0.5
 Werkzeug==0.9.6
 beautifulsoup4==4.3.2
 itsdangerous==0.24
-lxml==3.3.5
-pysqlite==2.6.3
-requests==2.3.0
-
+gunicorn==19.3.0
