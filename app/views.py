@@ -43,8 +43,7 @@ def q():
     response = Response(response=str(result[0]), status=200, mimetype="application/json")
     print "response.status=", response.status
     print "response.response=", response.response
-    print result
-    return jsonify(result)
+    return response
     #return render_template('result.html', result=session.get('result'))
     # return render_template('result.html', result=result)
     # return redirect('result.html')
