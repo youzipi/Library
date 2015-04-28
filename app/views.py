@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*- 
 # __author__ = 'youzipi'
-from flask import render_template, request, url_for, flash, redirect, session,g
+from flask import render_template, request, url_for, flash, redirect, session,g,Response
 from app.actions import query_by_keyword
 import json
 
@@ -45,7 +45,8 @@ def q():
     # url = "http://127.0.0.1:5000/python.xml"
     result = query_by_keyword(url)
     ret = '%s**%s' %(keyword+keyword, 'post')
-    return send_ok_json(ret)
+    response = Response(response=result, status=200, mimetype="application/json")
+    return response
 
 
 def result_temp():
