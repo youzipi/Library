@@ -2,6 +2,7 @@
 # __author__ = 'youzipi'
 from flask import render_template, request, url_for, flash, redirect, session,g
 from app.actions import query_by_keyword
+import json
 
 
 def index():
@@ -29,13 +30,23 @@ def query():
     # return redirect('result.html')
     #return "中文".encode('utf-8').decode('gbk')
 
+
+def send_ok_json(data=None):
+    if not data:
+        data = {}
+    ok_json = {'ok':True,'reason':'','data':data}
+    return json.dumps(ok_json)
+
+
 def q():
     keyword = request.form['keyword']
     print keyword
     url = "http://lib2.nuist.edu.cn/opac/search_rss.php?title=" + keyword
     # url = "http://127.0.0.1:5000/python.xml"
     result = query_by_keyword(url)
-    return result
+    ret = '%s**%s' %(keyword+keyword, 'post')
+    return send_ok_json(ret)
+
 
 def result_temp():
     # print g['result']
