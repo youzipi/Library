@@ -40,7 +40,9 @@ def q():
     url = "http://lib2.nuist.edu.cn/opac/search_rss.php?title=" + keyword
     # url = "http://127.0.0.1:5000/python.xml"
     result = query_by_keyword(url)
-    response = Response(response=str(result[0]), status=200, mimetype="application/json")
+    print type(result)
+    response = Response(response=json.dumps(result), status=200, mimetype="application/json")
+    print "rrrrrr"
     print "response.status=", response.status
     print "response.response=", response.response
     return response
@@ -57,16 +59,16 @@ def send_ok_json(data=None):
     return json.dumps(ok_json)
 
 
-def q():
-    keyword = request.form['keyword']
-    print keyword
-    url = "http://lib2.nuist.edu.cn/opac/search_rss.php?title=" + keyword
-    # url = "http://127.0.0.1:5000/python.xml"
-    result = query_by_keyword(url)
-    ret = '%s**%s' %(keyword+keyword, 'post')
-    response = Response(response=result[0], status=200, mimetype="application/json")
-    print "response=", response.response
-    return response
+#def q():
+#    keyword = request.form['keyword']
+#    print keyword
+#    url = "http://lib2.nuist.edu.cn/opac/search_rss.php?title=" + keyword
+#    # url = "http://127.0.0.1:5000/python.xml"
+#    result = query_by_keyword(url)
+#    ret = '%s**%s' %(keyword+keyword, 'post')
+#    response = Response(response=result[0], status=200, mimetype="application/json")
+#    print "response=", response.response
+#    return response
 
 
 def result_temp():
