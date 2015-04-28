@@ -7,6 +7,7 @@ app = Flask(__name__)
 # 将函数映射到 URLs
 app.add_url_rule('/', view_func=views.index)
 app.add_url_rule('/index/', view_func=views.index)
+#app.add_url_rule('/query/', view_func=views.query)
 app.add_url_rule('/query/', methods=['POST'], view_func=views.query)
 app.add_url_rule('/q/', methods=['POST'], view_func=views.q)
 # app.add_url_rule('/result_temp/', view_func=views.result_temp)

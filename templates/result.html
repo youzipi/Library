@@ -15,7 +15,9 @@
                 <tr>
                     <td>{{ book['index'] }}</td>
                     <td><a href="{{ book['link'] }}" target="_blank">{{ book['title'].decode('utf-8') }}</a></td>
+{#                    <td><a href="{{ book['link'] }}" target="_blank">{{ book['title'].decode('utf-8') }}</a></td>#}
                     <td>{{ book['id'] }}</td>
+{#                    <td>{{ book['pub'].decode('utf-8') }}</td>#}
                     <td>{{ book['pub'].decode('utf-8') }}</td>
                 </tr>
             {% endfor %}
