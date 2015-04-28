@@ -25,7 +25,8 @@ def query():
     # print result[0]
     # return redirect(url_for('result_temp'))
     response = Response(response=result, status=200, mimetype="application/json")
-    print "response=", response.status
+    print "response.status=", response.status
+    print "response.response=", response.response
     #print str(response.data)
     return redirect(url_for('result'))
     #return render_template('result.html', result=session.get('result'))
