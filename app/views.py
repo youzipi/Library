@@ -50,7 +50,7 @@ def q():
     result = query_by_keyword(url)
     ret = '%s**%s' %(keyword+keyword, 'post')
     response = Response(response=result[0], status=200, mimetype="application/json")
-    print "response=", response
+    print "response=", response.response
     return response
 
 
