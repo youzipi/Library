@@ -14,7 +14,8 @@ sys.setdefaultencoding('utf-8')
 def get_info(book, description, item):
     try:
         pattern_link = re.compile(u'(http://[\S]*)(?=<)'.encode('utf-8'))
-        pattern_id = re.compile(u'(?<=索书号:)([T]?P[\S]*)'.encode('utf-8'))
+        pattern_id = re.compile(u'(?<=索书号:)([T]?[\S]*)'.encode('utf-8'))
+        # pattern_id = re.compile(u'(?<=索书号:)([T]?P[\S]*)'.encode('utf-8'))
         pattern_pub = re.compile(u'(?<=出版信息:)(.*)'.encode('utf-8'))
 
         link = re.search(pattern_link, str(item))
@@ -30,6 +31,7 @@ def get_info(book, description, item):
         del book_id
         del pub
     except AttributeError, Argument:
+        print"Error=" + str(AttributeError)
         print"Error=" + str(Argument)
         #print(book_id)
         #print(pub)

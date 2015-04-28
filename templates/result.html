@@ -14,11 +14,11 @@
             {% for book in result %}
                 <tr>
                     <td>{{ book['index'] }}</td>
-                    <td><a href="{{ book['link'] }}" target="_blank">{{ book['title'].decode('utf-8') }}</a></td>
+                    <td><a href="{{ book['link'] }}" target="_blank">{{ book['title'] }}</a></td>
 {#                    <td><a href="{{ book['link'] }}" target="_blank">{{ book['title'].decode('utf-8') }}</a></td>#}
                     <td>{{ book['id'] }}</td>
 {#                    <td>{{ book['pub'].decode('utf-8') }}</td>#}
-                    <td>{{ book['pub'].decode('utf-8') }}</td>
+                    <td>{{ book['pub']}}</td>
                 </tr>
             {% endfor %}
         </table>
