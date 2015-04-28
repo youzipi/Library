@@ -24,6 +24,9 @@ def query():
     # g['result'] = result
     # print result[0]
     # return redirect(url_for('result_temp'))
+    response = Response(response=result, status=200, mimetype="application/json")
+    print "response=", response.status
+    #print str(response.data)
     return redirect(url_for('result'))
     #return render_template('result.html', result=session.get('result'))
     # return render_template('result.html', result=result)
@@ -46,6 +49,7 @@ def q():
     result = query_by_keyword(url)
     ret = '%s**%s' %(keyword+keyword, 'post')
     response = Response(response=result, status=200, mimetype="application/json")
+    print "response=", response
     return response
 
 
