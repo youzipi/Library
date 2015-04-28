@@ -24,7 +24,7 @@ def query():
     # g['result'] = result
     # print result[0]
     # return redirect(url_for('result_temp'))
-    response = Response(response=result[0], status=200, mimetype="application/json")
+    response = Response(response=str(result[0]), status=200, mimetype="application/json")
     print "response.status=", response.status
     print "response.response=", response.response
     #print str(response.data)
@@ -40,7 +40,11 @@ def q():
     url = "http://lib2.nuist.edu.cn/opac/search_rss.php?title=" + keyword
     # url = "http://127.0.0.1:5000/python.xml"
     result = query_by_keyword(url)
-    return result
+    response = Response(response=str(result[0]), status=200, mimetype="application/json")
+    print "response.status=", response.status
+    print "response.response=", response.response
+    print result
+    return jsonify(result)
     #return render_template('result.html', result=session.get('result'))
     # return render_template('result.html', result=result)
     # return redirect('result.html')
