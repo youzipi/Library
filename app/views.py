@@ -5,7 +5,7 @@ from app.actions import query_by_keyword
 import json
 from flask.ext.restful import Resource,reqparse
 
-request.json
+# request.json
 def index():
     return render_template('index.html')
 
@@ -37,7 +37,7 @@ def query():
 
 # Request Parsing
 parser = reqparse.RequestParser()
-parser.add_argument('keyword', type=str, required=True, help="keyword cannot be null" location=)
+parser.add_argument('keyword', type=str, required=True, help="keyword cannot be null")
 
 
 class q(Resource):
@@ -47,8 +47,9 @@ class q(Resource):
         url = "http://lib2.nuist.edu.cn/opac/search_rss.php?title=" + keyword
 
         book_list = query_by_keyword(url)
-
-        return json.dumps(book_list)
+        response = Response(response=json.dumps(book_list), status=200, mimetype="application/json")
+        # return json.dumps(book_list),
+        return response
         #return result  #不以index排序
 
 
