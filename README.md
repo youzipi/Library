@@ -4,11 +4,12 @@
 
 解析图书馆提供的rss，提取图书信息（书名，作者，ISBN，馆藏地）
 
-- /d?marc_no=0000515353 返回图书信息（html格式）
+
 
 restful 接口
 GET：
 - /q?keyword=python 按关键字返回
+- /d?marc_no=0000515353 返回图书信息（html格式）
 - /detail/0000515353 返回图书信息（json格式） 待完善
 
 目前只实现了关键字查询
