@@ -1,3 +1,4 @@
+requests
 Flask==0.10.1
 Jinja2==2.7.1
 WTForms==1.0.5

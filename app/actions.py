@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*- 
 # __author__ = 'youzipi'
+import json
 
 import os
 import sys
@@ -13,7 +14,8 @@ sys.setdefaultencoding('utf-8')
 
 def get_info(book, description, item):
     try:
-        pattern_link = re.compile(u'(http://[\S]*)(?=<)'.encode('utf-8'))
+        # pattern_link = re.compile(u'(http://[\S]*)(?=<)'.encode('utf-8'))
+        pattern_link = re.compile(u'(?<=marc_no=)([\S]*)(?=<)'.encode('utf-8'))
         pattern_id = re.compile(u'(?<=索书号:)([T]?[\S]*)'.encode('utf-8'))
         # pattern_id = re.compile(u'(?<=索书号:)([T]?P[\S]*)'.encode('utf-8'))
         pattern_pub = re.compile(u'(?<=出版信息:)(.*)'.encode('utf-8'))
@@ -25,9 +27,9 @@ def get_info(book, description, item):
         #print(book_id)
         #print(pub)
         #print(z)
-        book['link'] = link.group().encode('utf-8')
-        book['id'] = book_id.group().encode('utf-8')  # if book_id else ""
-        book['pub'] = pub.group().encode('utf-8')  # if pub else "
+        book['link'] = link.group()#.encode('utf-8')
+        book['id'] = book_id.group()#.encode('utf-8')  # if book_id else ""
+        book['pub'] = pub.group()#.encode('utf-8')  # if pub else "
         del book_id
         del pub
     except AttributeError, Argument:
@@ -69,7 +71,29 @@ def query_by_keyword(url):
     return book_list
 
 
+def get_book_info(marc_no):
+        # soup = BeautifulSoup(xml, from_encoding='GB18030')
+    url = "http://lib2.nuist.edu.cn/opac/item.php?marc_no="+marc_no
+    html = urllib2.urlopen(url).read()
+    soup = BeautifulSoup(html)
+    detail = soup.find(id="item_detail")
+    dl = detail.find_all('dl')
+
+    book = {}
+    book['title'] = dl[0].dd.a.text.encode('utf-8')
+    book['content'] = detail
+    # book['pub'] = dl[1].dd.text.encode('utf-8')
+    # book['pub'] = dl[4].dd.text.encode('utf-8')
+
+    # return book
+    return str(detail)
+    # return json.dumps(str(dl))
+
 if __name__ == '__main__':
     keyword = "python"
     url = "http://lib2.nuist.edu.cn/opac/search_rss.php?title=" + keyword
-    query_by_keyword(url)
+    print query_by_keyword(url)
+    marc_no = "0000063953"
+    book = get_book_info(marc_no)
+    print book
+

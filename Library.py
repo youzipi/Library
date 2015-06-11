@@ -24,18 +24,22 @@ class todo(Resource):
 # restful API配置
 api.add_resource(todo, '/<string:todo_id>')
 api.add_resource(views.q, '/q')
+api.add_resource(views.d, '/d')
+# api.add_resource(views.detail, '/detail')
 
 # 将函数映射到 URLs
 app.add_url_rule('/', view_func=views.index)
 app.add_url_rule('/index/', view_func=views.index)
 # app.add_url_rule('/query/', view_func=views.query)
 app.add_url_rule('/query/', methods=['POST'], view_func=views.query)
+app.add_url_rule('/detail/<string:id>', methods=['GET'], view_func=views.detail)
+app.add_url_rule('/book-detail', methods=['GET'], view_func=views.book_detail)
 # app.add_url_rule('/result_temp/', view_func=views.result_temp)
 app.add_url_rule('/result/', view_func=views.result)
 app.secret_key = 'some_secret'
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(host='0.0.0.0', port=8080)
-    # app.run()
+    # app.run(host='0.0.0.0', port=8080)
+    app.run()
 

@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*- 
 # __author__ = 'youzipi'
+import re
 from flask import render_template, request, url_for, flash, redirect, session, g, Response
-from app.actions import query_by_keyword
+import requests
+from app.actions import query_by_keyword, get_book_info
 import json
-from flask.ext.restful import Resource,reqparse
+from flask.ext.restful import Resource, reqparse
 
 # request.json
 def index():
@@ -28,7 +30,7 @@ def query():
     response = Response(response=str(result[0]), status=200, mimetype="application/json")
     print "response.status=", response.status
     print "response.response=", response.response
-    #print str(response.data)
+    # print str(response.data)
     return redirect(url_for('result'))
     #return render_template('result.html', result=session.get('result'))
     # return render_template('result.html', result=result)
@@ -37,7 +39,9 @@ def query():
 
 # Request Parsing
 parser = reqparse.RequestParser()
+parser_book = reqparse.RequestParser()
 parser.add_argument('keyword', type=str, required=True, help="keyword cannot be null")
+parser_book.add_argument('marc_no', type=str, required=True, help="marc_no cannot be null")
 
 
 class q(Resource):
@@ -50,7 +54,7 @@ class q(Resource):
         response = Response(response=json.dumps(book_list), status=200, mimetype="application/json")
         # return json.dumps(book_list),
         return response
-        #return result  #不以index排序
+        # return result  #不以index排序
 
 
 def send_ok_json(data=None):
@@ -67,5 +71,52 @@ def result_temp():
 
 def result():
     print session['result']
-    return render_template('result.html', result=session.get('result'))  #, result=session.get('result'))
+    return render_template('result.html', result=session.get('result'))  # , result=session.get('result'))
 
+
+class d(Resource):
+    def get(self):
+        args = parser_book.parse_args()
+        url = args['marc_no']
+        book = get_book_info(url)
+        session['book'] = book
+        print book
+        response = Response(response=str(book), status=200)
+        return response
+
+
+# def detail(marc_no):
+# print marc_no
+#     book = get_book_info(marc_no)
+#     session['book'] = book
+#     print book
+#     # response = Response(response=json.dumps(book), status=200)
+#     # return redirect(url_for('detail'), book=book)
+#     return render_template('detail.html', book=str(book)[1:-1], mimetype="application/xml")
+
+def detail(id):
+    print id
+    data = {}
+    r = requests.get('http://lib2.nuist.edu.cn/opac/item.php?marc_no=%s' % id)
+    match0 = re.compile(r'<dt>(.*)</dt>')
+    match1 = re.compile(r'<dd>(.*)</dd>')
+    match2 = re.compile(r'<td  width="25%" title="(.*)"><img src="../tpl/images/place_marker.gif" />(.*)</td>')
+    match3 = re.compile(r'<td  width="20%" >(.*)</td>')
+
+    dt = re.findall(match0, r.content)
+    dd = re.findall(match1, r.content)
+    address = re.findall(match2, r.content)
+    flag = re.findall(match3, r.content)
+    data['status'] = True
+    data['dt'] = dt
+    data['dd'] = dd
+    data['address'] = address
+    data['flag'] = flag
+    print data
+    # response = Response(content=json.dumps(data), mimetype='application/json')
+    response = Response(response=json.dumps(data), status=200, mimetype="application/json")
+    return response
+
+
+def book_detail():
+    return render_template('book-detail.html')
