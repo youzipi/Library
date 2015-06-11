@@ -133,5 +133,5 @@ def detail(id):
 
 
 
-def book_detail():
-    return render_template('book-detail.html')
+def book_detail(id):
+    return render_template('book-detail.html', id=id)

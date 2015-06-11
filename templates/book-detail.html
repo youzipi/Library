@@ -5,48 +5,40 @@
     <meta charset="UTF-8">
     <meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
     <script type="text/javascript" src="/static/js/jquery.min.js"></script>
-{#    <link rel="stylesheet" type="text/css" href="/static/css/default2.css">#}
+    {#    <link rel="stylesheet" type="text/css" href="/static/css/default2.css">#}
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
-    <title>指尖南信</title>
+    <title>book_info</title>
 </head>
 <script type="text/javascript">
+    {#    var marc_no = '0000510795';#}
 {#    var marc_no = ''#}
-{#    var url = window.location.toString();#}
-{#    var str = "";#}
-{#    if (url.indexOf("?") != -1) {#}
-{#        var ary = url.split("?")[1].split("&");#}
-{#        for (var i in ary) {#}
-{#            str = ary[i].split("=")[0];#}
-{#            if (str == "marc_no") {#}
-{#                marc_no = decodeURI(ary[i].split("=")[1]);#}
-{#            }#}
-{#        }#}
-{#    }#}
-    var marc_no = '0000510795';
-    $.get('/detail/' + marc_no,
+    var url = window.location.href;
+    var marc_no = url.split('/').pop();
+
+    $.get('/api/v1/detail/' + marc_no,
             function (res) {
-                console.log(res)
+{#                console.log(res);#}
                 dt = res.dt;
                 dd = res.dd;
                 address = res.address;
                 flag = res.flag;
                 console.log(res);
-                html1 = ''
+                html1 = '';
                 $.each(dt, function (i, e) {
                     html1 += '<p><span id=' + i + ' style="font-size:16px;color:#AFA7A7;">' + e + '&nbsp&nbsp</span><span class="' + i + '">' + dd[i] + '</span></p>'
-                })
+                });
                 $.each(address, function (i, e) {
-                    html1 += '<p><span>馆藏信息:&nbsp&nbsp</span><span>' + e[1] + '</span>&nbsp&nbsp<span>' + flag[i] + '<span></p>'
-                    console.log(html1);
-                })
+                    html1 += '<p><span>馆藏信息:&nbsp&nbsp</span><span>' + e[1] + '</span>&nbsp&nbsp<span>' + flag[i] + '<span></p>';
+{#                    console.log(html1);#}
+                });
                 $(".detail").html(html1);
                 $('a').removeAttr('href');
-            })
+            });
 </script>
 
 <body>
 <div class="detail">
-    <p style="margin-top:20px;">正在加载...</p>
+    <p style="margin-top:20px;">Loading...</p>
 
 </div>
 

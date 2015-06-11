@@ -36,7 +36,7 @@ app.add_url_rule('/', view_func=views.index)
 app.add_url_rule('/index/', view_func=views.index)
 app.add_url_rule('/query/', methods=['POST'], view_func=views.query)
 app.add_url_rule('/detail/<string:id>', methods=['GET'], view_func=views.detail)
-app.add_url_rule('/book-detail', methods=['GET'], view_func=views.book_detail)
+app.add_url_rule('/book-detail/<string:id>', methods=['GET'], view_func=views.book_detail)
 app.add_url_rule('/result/', view_func=views.result)
 app.secret_key = 'some_secret'
 
